@@ -1,9 +1,9 @@
 tasks:
-  - init: 
-      pip install -r requirements.txt
-      export FLASK_RUN_PORT==0.0.0.0
-      export FLASK_RUN_HOST==8080
-      export FLASK_ENV==development
+  - name: start
+    init: pip install -r requirements.txt
+    command: export FLASK_RUN_PORT=0.0.0.0
+    command: export FLASK_RUN_HOST=8080
+    command: export FLASK_ENV=development
 
 ports:
   - port: 8080
