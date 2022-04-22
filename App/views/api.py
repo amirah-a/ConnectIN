@@ -8,6 +8,10 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 def get_api_docs():
     return render_template('index.html')
 
+@api_views.route('/welcome', methods=['GET'])
+def landing():
+    return render_template('landing.html')
+
 
 @api_views.route('/login', methods=['GET', 'POST'])
 def login():

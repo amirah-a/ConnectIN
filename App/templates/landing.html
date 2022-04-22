@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+  
+    <link rel="stylesheet" href="CSS/form.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style>
+        .card-body{
+            height: 100px;
+            position: relative;
+            width: 100%;
+        }
+        .buttons{
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-27%, -50%);
+            transform: translate(63%, -55%);
+            left: 15px;
+        }
+        button.primary {
+			background-color: #ffc107;
+			border: 1px solid #ad8306;
+			border-radius: 5px;
+			color: #231E39;
+			font-family: Montserrat, sans-serif;
+			font-weight: 500;
+			padding: 10px 25px;
+			margin-top: 18px;
+		}
+		
+		button.primary.ghost {
+            background-color: transparent;
+            color: #6c757d;
+		}
+
+    </style>
+  </head>
+  <body style="background-color: #e0a800;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <nav class="white black-text" style="padding: 10px">
+      <div class="nav-wrapper">
+          <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      </div>
+    </nav>
+    {% endif %}
+    {% endwith %}
+
+    <div class="row" style="margin:auto; position:relative;width: 100%; padding:10px; padding-top: 100px;">
+        <div class="col-md-8 offset-md-2">
+            <div class="page-content page-container" id="page-content">
+                <div class="padding">
+                    <div class="row">
+                        <div class="col-md-6" style="margin:auto; position:relative;width: 1500px; padding:10px;">
+                            <div class="card">
+                                <div class="card-header"><h2><strong>Welcome to ConnectIn!</strong></h2></div>
+                                <div class="card-body">
+                                    <div class="buttons">                                    
+                                        <button class="primary">Login</button>
+                                        <button class="primary ghost">Sign Up</button></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
