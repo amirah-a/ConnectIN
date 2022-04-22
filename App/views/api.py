@@ -8,6 +8,7 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 def get_api_docs():
     return render_template('index.html')
 
+
 @api_views.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
@@ -54,6 +55,11 @@ def createProfile():
         return ("Sucess")
 
     return render_template('createProfile.html')
+
+# route to display profile
+@api_views.route('/user-profile', methods=['GET'])
+def view_profile():
+    return render_template('profile.html')
 
 @api_views.route('/logout', methods=['GET'])
 @login_required
