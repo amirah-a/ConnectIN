@@ -61,6 +61,10 @@ def createProfile():
 def view_profile():
     return render_template('profile.html')
 
+@api_views.route('/dashboard', methods=['GET'])
+def dashboard():
+    return render_template('dashboard.html')
+
 @api_views.route('/logout', methods=['GET'])
 @login_required
 def logout():
