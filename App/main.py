@@ -55,6 +55,17 @@ def create_app(config={}):
     add_views(app, views)
     create_db(app)
     setup_jwt(app)
+    
+    login_manager = LoginManager()
+    login_manager.login_view ='api_views.login'
+    login_manager.init_app(app)
+    from .models import User
+
+    @login_manager.user_loader
+    def load_user(user_email):
+        return User.query.get(user_email)
+
+    
     app.app_context().push()
     return app
 

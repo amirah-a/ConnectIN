@@ -12,6 +12,19 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   </head>
   <body style="background-color: #e0a800;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <nav class="white black-text" style="padding: 10px">
+      <div class="nav-wrapper">
+          <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      </div>
+    </nav>
+    {% endif %}
+    {% endwith %}
 
     <div class="row" style="margin:auto; position:relative;width: 1500px; padding:10px; padding-top: 100px;">
         <div class="col-md-8 offset-md-2">
@@ -23,11 +36,12 @@
                                 <div class="card-header"><h2><strong>ConnectIN</strong></h2></div>
                                 <div class="card-body">
                                     <h3 style="text-align: center; padding-bottom: 20px;">Sign Up</h3>
-                                    <form>
-                                        <div class="form-group"><label class="text-muted" >First Name</label><input type="text" class="form-control" placeholder="Enter first name"></div>
-                                        <div class="form-group"><label class="text-muted" >Last Name</label><input type="text" class="form-control" placeholder="Enter last name"></div>
-                                        <div class="form-group"><label class="text-muted" >Email address</label><input type="email" class="form-control" placeholder="Enter email"></div>
-                                        <div class="form-group"><label class="text-muted">Password</label><input type="password" class="form-control" placeholder="Password"></div>
+                                    <form method="post" action="#" >
+                                        <div class="form-group"><label class="text-muted" >First Name</label><input name="fname" type="text" class="form-control" placeholder="Enter first name"></div>
+                                        <div class="form-group"><label class="text-muted" >Last Name</label><input name="lname" type="text" class="form-control" placeholder="Enter last name"></div>
+                                        <div class="form-group"><label class="text-muted" >Username</label><input name="username" type="text" class="form-control" placeholder="Enter username" required></div>
+                                        <div class="form-group"><label class="text-muted" >Email address</label><input name="email" type="email" class="form-control" placeholder="Enter email" required></div>
+                                        <div class="form-group"><label class="text-muted">Password</label><input name="password" type="password" class="form-control" placeholder="Password" required></div>
                                         <div class="form-group">
                                         </div> <button type="submit" class="btn btn-warning" style="float: right; border: 2px solid black; text-transform: none;">Register</button>
                                     </form>
