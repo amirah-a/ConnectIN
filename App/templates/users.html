@@ -14,7 +14,7 @@
       <table>
         <thead>
           <tr>
-            <th>Id</th><th>Username</th><th>firstName</th><th>lastName</th>
+            <th>Id</th><th>Username</th><th>firstName</th><th>lastName</th><th>Grad</th><th>degree</th><th>faculty</th><th>dept</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,11 @@
                 <td>{{user.id}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.lastName}}</td>
-                <td>{{user.firstName}}</td>
+                <td>{{user.year}}</td>
+                <td>{{user.degree}}</td>
+                <td>{{user.deoartment}}</td>
+                <td>{{user.faculty}}</td>
+                <td>{{user.profile_pic}}</td>
             </tr>
           {% endfor %}
         <tbody>

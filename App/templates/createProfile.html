@@ -23,18 +23,18 @@
                                 <div class="card-header"><h2><strong>ConnectIN</strong></h2></div>
                                 <div class="card-body">
                                     <h3 style="text-align: center; padding-bottom: 20px;">Create Alumni Profile</h3>
-                                    <form>
+                                    <form action="#" method="POST" enctype="multipart/form-data">
 										<div id="preview"></div>
 										<div class="form-group">
 											<label for="upload_file" style="display:block; width:50%; height:45px; margin-left: 25%; line-height:50px; text-align:center; background:#1172c2; color:#fff; font-size:15px; font-family: sans-serif; text-transform:Uppercase; font-weight:600; border-radius:5px; cursor:pointer;">Upload Image</label>
-											<input style="display:none;" type="file" name="upload_file" class="form-control" id="upload_file" onchange="getImagePreview(event)">
+											<input style="display:none;" type="file" name="upload_file" class="form-control" id="upload_file" accept="image/*" onchange="getImagePreview(event)">
 										</div>
 							
-                                        <div class="form-group"><label class="text-muted" >Year</label><input type="text" name="year" class="form-control" placeholder="Enter graduation year"></div>
-                                        <div class="form-group"><label class="text-muted" >Degree</label><input type="text" name="degree" class="form-control" placeholder="Enter degree"></div>
-                                        <div class="form-group"><label class="text-muted" >Faculty</label><input type="text" name="faculty" class="form-control" placeholder="Enter faculty"></div>
-                                        <div class="form-group"><label class="text-muted">Department</label><input type="text" name="department" class="form-control" placeholder="Enter department name"></div>
-                                        <div class="form-group"><label class="text-muted">Job History</label> <textarea style="min-height: 100px" name="history" placeholder="<Company> <Position> <Description>"  rows=10 cols=20> </textarea></div>
+                                        <div class="form-group"><label class="text-muted" >Year</label><input type="text" name="year" class="form-control" placeholder="Enter graduation year (eg. 2015)"></div>
+                                        <div class="form-group"><label class="text-muted" >Degree</label><input type="text" name="degree" class="form-control" placeholder="Enter degree (eg. Bsc. Mathematics Major)"></div>
+                                        <div class="form-group"><label class="text-muted" >Department</label><input type="text" name="department" class="form-control" placeholder="Enter department name (eg. Mathematics)"></div>
+                                        <div class="form-group"><label class="text-muted" >Faculty</label><input type="text" name="faculty" class="form-control" placeholder="Enter faculty (eg. Science and Technology)"></div>
+                                        <div class="form-group"><label class="text-muted" >Job History</label> <textarea style="min-height: 100px" name="history" placeholder="Company - Position - Description"  rows=10 cols=20> </textarea></div>
 										<div class="form-group">
                                         </div> <button type="submit" class="btn btn-warning" style="float: right; border: 2px solid black; text-transform: none;" >Create Profile</button>
                                     
