@@ -40,14 +40,7 @@
 
   <body>
 
-    <nav class="header" style="background:#ffc107;">
-      <div class="nav-wrapper">
-        <div class="nav-wrapper" >
-     		<h1 style="    padding: 8px; color: black; font-family: 'Arvo', serif">ConnectIn</h1>
-        </div>
-      </div>
-    </nav>
-	  
+    {% include "navbar.html" %}
 
 
 	<div class="row" style="margin:auto; position:relative;width: 100%; padding: 20%; padding-top: 38px;">
@@ -58,12 +51,18 @@
 		
 		<div class="cards" style="display: grid;  grid-gap: 50px;">
 			{% for user in users %}
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="{{url_for('static', filename='uploads/' + (user.profile_pic | default('default.jpg')))}}" width="250" height="250" alt="Card image cap">
-			  <div class="card-body">
-			    <p class="card-text">{{user.firstName}} {{user.lastName}} - {{user.degree}} ({{user.year}})</p>
-			  </div>
-			</div>
+      <a href="{{url_for('api_views.view_profile', id=user.id)}}">
+        <div class="card" style="width: 18rem;">
+          {% if user.profile_pic %}
+          <img class="card-img-top" src="{{url_for('static', filename='uploads/' + user.profile_pic)}}" width="250" height="250" alt="Card image cap">
+          {% else %}
+          <img class="card-img-top" src="{{url_for('static', filename='uploads/default.jpg')}}" width="250" height="250" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text">{{user.firstName}} {{user.lastName}} - {{user.degree}} ({{user.year}})</p>
+          </div>
+        </div>
+      </a>
 			{% endfor %}
 
 		</div>

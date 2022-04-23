@@ -52,15 +52,22 @@ def createProfile():
         user.add_profile_data(id=current_user.id, year=request.form['year'], 
         degree=request.form['degree'], department=request.form['department'],
         faculty=request.form['faculty'], job=request.form['history'], profile_pic=request.files['upload_file'])
-        return ("Sucess")
+        return redirect(url_for('api_views.dashboard'))
 
     return render_template('createProfile.html')
 
 # route to display profile
 @api_views.route('/user-profile/<id>', methods=['GET'])
+@login_required
 def view_profile(id):
     users= user.get_user_by_id(id)
     return render_template('profile.html', user=users)
+
+# route to display profile
+@api_views.route('/my-profile', methods=['GET'])
+@login_required
+def my_profile():
+    return render_template('profile.html', user=current_user)
 
 @api_views.route('/dashboard', methods=['GET'])
 def dashboard():

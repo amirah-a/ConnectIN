@@ -153,19 +153,17 @@
 	</style>
 
   <body>
-
-    <nav class="header" style="background:#ffc107;">
-      <div class="nav-wrapper">
-        <div class="nav-wrapper" >
-     		<h1 style="    padding: 8px; color: black; font-family: 'Arvo', serif">ConnectIn</h1>
-        </div>
-      </div>
-    </nav>
-	  
+	{% include "navbar.html" %}
+    
 
 
 <div class="card-container">
-	<img class="round" src="{{url_for('static', filename='uploads/' + (user.profile_pic | default('default.jpg')))}}" width="200" height="200" alt="default">
+	{% if user.profile_pic %}
+        <img class="round" src="{{url_for('static', filename='uploads/' + user.profile_pic)}}" width="250" height="250" alt="Card image cap">
+    {% else %}
+        <img class="round" src="{{url_for('static', filename='uploads/default.jpg')}}" width="250" height="250" alt="Card image cap">
+    {% endif %}
+	
 	<h3>{{user.firstName}} {{user.lastName}}</h3>
 	<div class="info">
 		<h6>{{user.degree}} ({{user.year}})</h6><br>
