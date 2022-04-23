@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+
+	<link rel="stylesheet" href="CSS/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
+  </head>
+
+  <style>
+      /* media query for grid */
+
+      @media only screen and (min-width: 300px) {
+            .cards {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        @media only screen and (min-width: 600px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media only screen and (min-width: 1280px) {
+            .cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+  </style>
+
+  <body>
+
+    {% include "navbar.html" %}
+
+
+    <div class="row" style="margin:auto; position:relative; padding-top: 38px;">
+      <form class="row" style="flex-flow: row;width: 100%; padding-bottom:30px;" action="#" method="POST">
+        <div class="input-field col s2 m2 l2">
+          <select name="queryType" class="selectpicker form-control">
+            <option value=""  selected>Search By</option>
+            <option value="1">Name</option>
+            <option value="2">Year</option>
+            <option value="3">Degree</option>
+            <option value="4">Department</option>
+            <option value="5">Faculty</option>
+            <option value="6">Job Experience</option>
+          </select>
+          
+        </div>
+        <div class="input-field col s8 m8 l8">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="input-field col s2 m2 l2">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-color: #ffc107;color: black;background: #ffc107;">Search</button>  
+        </div>
+      </form>
+      </div>
+
+      <div class="container">
+        <blockquote>
+          Searching for users with {{key}} in their {{type}} .... 
+        </blockquote>
+      </div>
+		
+		<div class="cards" style="display: grid;  grid-gap: 50px;">
+			{% for user in users %}
+      <a href="{{url_for('api_views.view_profile', id=user.id)}}">
+        <div class="card" style="width: 18rem;">
+          {% if user.profile_pic %}
+          <img class="card-img-top" src="{{url_for('static', filename='uploads/' + user.profile_pic)}}" width="250" height="250" alt="Card image cap">
+          {% else %}
+          <img class="card-img-top" src="{{url_for('static', filename='uploads/default.jpg')}}" width="250" height="250" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text">{{user.firstName}} {{user.lastName}} - {{user.degree}} ({{user.year}})</p>
+          </div>
+        </div>
+      </a>
+			{% endfor %}
+
+		</div>
+	
+	</div>
+  
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>

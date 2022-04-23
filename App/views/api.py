@@ -17,7 +17,8 @@ def login():
             auth.login_user(userL, False)
             return redirect(url_for('api_views.view_profile', id=current_user.id))
         else:
-            return ("Login Failed")
+            flash("Login Failed")
+            return redirect(url_for('api_views.login'))
     else:
         return render_template('login.html')
 
@@ -40,10 +41,6 @@ def signUp():
     else:
         return render_template('signUp.html')
 
-@api_views.route('/profile', methods=['GET'])
-@login_required
-def profile():
-    return ("Welcome " + current_user.firstName)
 
 @api_views.route('/create-profile', methods=['GET', 'POST'])
 @login_required
@@ -70,6 +67,7 @@ def my_profile():
     return render_template('profile.html', user=current_user)
 
 @api_views.route('/dashboard', methods=['GET', 'POST'])
+@login_required
 def dashboard():
     if request.method == "POST":
         return redirect(url_for('api_views.search', type=request.form['queryType'], key=request.form['search']))
@@ -82,20 +80,22 @@ def logout():
     auth.logout_user()
     return ("logged out")
 
-@api_views.route('/search/<type>/<key>', methods=['GET'])
+@api_views.route('/search/<type>/<key>', methods=['GET', 'POST'])
 @login_required
 def search(type, key):
+    if request.method == "POST":
+        return redirect(url_for('api_views.search', type=request.form['queryType'], key=request.form['search']))
     if type == "2":
-        filterBy = "year"
+        filterBy = "Year"
     elif type == "3":
-        filterBy = "degree"
+        filterBy = "Degree"
     elif type == "4":
-        filterBy = "department"
+        filterBy = "Department"
     elif type == "5":
-        filterBy = "faculty"
+        filterBy = "Faculty"
     elif type == "6":
-        filterBy = "experience"
+        filterBy = "Job History"
     else:
-        filterBy = "firstName"
+        filterBy = "Name"
     users = user.search_for_users(type, key)
-    return render_template('dashboard.html', users = users)
+    return render_template('search.html', users = users, key=key, type=filterBy)

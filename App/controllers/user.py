@@ -75,7 +75,7 @@ def search_for_users(type, key):
     if type == "2":
         users = User.query.filter(User.year.like('%' + key + '%'))
     elif type == "3":
-        users = User.query.filter(degree=key)
+        users = User.query.filter(User.degree.like('%' + key + '%'))
     elif type == "4":
         users = User.query.filter(User.department.like('%' + key + '%'))
     elif type == "5":
