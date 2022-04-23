@@ -35,6 +35,12 @@ def get_user(username, email):
         return 
     return users
 
+def get_user_by_id(id):
+    users = User.query.filter_by(id=id).first()
+    if not users:
+        return 
+    return users
+
 
 def is_user(username, email):
     users = User.query.filter_by(username=username).first()
@@ -64,3 +70,19 @@ def add_profile_data(id, year, degree, department, faculty, job, profile_pic):
         profile_pic.save(os.path.join(current_app.config['UPLOADED_PHOTOS_DEST'], pic_name))
     db.session.add(users)
     db.session.commit()
+
+def search_for_users(type, key):
+    if type == "2":
+        users = User.query.filter(User.year.like('%' + key + '%'))
+    elif type == "3":
+        users = User.query.filter(User.degree.like('%' + key + '%'))
+    elif type == "4":
+        users = User.query.filter(User.department.like('%' + key + '%'))
+    elif type == "5":
+        users = User.query.filter(User.faculty.like('%' + key + '%'))
+    elif type == "6":
+        users = User.query.filter(User.experience.like('%' + key + '%'))
+    else:
+        users = User.query.filter(User.firstName.like('%' + key + '%'), User.lastName.like('%' + key + '%'))
+    users = [user.toDict() for user in users]
+    return users

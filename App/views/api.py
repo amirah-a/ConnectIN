@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for, flash
+from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for, flash, jsonify
 from App.controllers import user, auth
 from flask_login import login_required, current_user
 
@@ -15,9 +15,10 @@ def login():
         userL = auth.authenticate(request.form["username"], request.form["password"])
         if userL:
             auth.login_user(userL, False)
-            return redirect(url_for('api_views.profile'))
+            return redirect(url_for('api_views.view_profile', id=current_user.id))
         else:
-            return ("Login Failed")
+            flash("Login Failed")
+            return redirect(url_for('api_views.login'))
     else:
         return render_template('login.html')
 
@@ -40,10 +41,6 @@ def signUp():
     else:
         return render_template('signUp.html')
 
-@api_views.route('/profile', methods=['GET'])
-@login_required
-def profile():
-    return ("Welcome " + current_user.firstName)
 
 @api_views.route('/create-profile', methods=['GET', 'POST'])
 @login_required
@@ -52,18 +49,30 @@ def createProfile():
         user.add_profile_data(id=current_user.id, year=request.form['year'], 
         degree=request.form['degree'], department=request.form['department'],
         faculty=request.form['faculty'], job=request.form['history'], profile_pic=request.files['upload_file'])
-        return ("Sucess")
+        return redirect(url_for('api_views.dashboard'))
 
     return render_template('createProfile.html')
 
 # route to display profile
-@api_views.route('/user-profile', methods=['GET'])
-def view_profile():
-    return render_template('profile.html')
+@api_views.route('/user-profile/<id>', methods=['GET'])
+@login_required
+def view_profile(id):
+    users= user.get_user_by_id(id)
+    return render_template('profile.html', user=users)
 
-@api_views.route('/dashboard', methods=['GET'])
+# route to display profile
+@api_views.route('/my-profile', methods=['GET'])
+@login_required
+def my_profile():
+    return render_template('profile.html', user=current_user)
+
+@api_views.route('/dashboard', methods=['GET', 'POST'])
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    if request.method == "POST":
+        return redirect(url_for('api_views.search', type=request.form['queryType'], key=request.form['search']))
+    users = user.get_all_users()
+    return render_template('dashboard.html', users = users)
 
 @api_views.route('/welcome', methods=['GET'])
 def landing():
@@ -74,3 +83,23 @@ def landing():
 def logout():
     auth.logout_user()
     return ("logged out")
+
+@api_views.route('/search/<type>/<key>', methods=['GET', 'POST'])
+@login_required
+def search(type, key):
+    if request.method == "POST":
+        return redirect(url_for('api_views.search', type=request.form['queryType'], key=request.form['search']))
+    if type == "2":
+        filterBy = "Year"
+    elif type == "3":
+        filterBy = "Degree"
+    elif type == "4":
+        filterBy = "Department"
+    elif type == "5":
+        filterBy = "Faculty"
+    elif type == "6":
+        filterBy = "Job History"
+    else:
+        filterBy = "Name"
+    users = user.search_for_users(type, key)
+    return render_template('search.html', users = users, key=key, type=filterBy)
