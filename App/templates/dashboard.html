@@ -43,11 +43,28 @@
     {% include "navbar.html" %}
 
 
-	<div class="row" style="margin:auto; position:relative;width: 100%; padding: 20%; padding-top: 38px;">
-		<form class="form-inline" style="flex-flow: row;width: 100%; padding-bottom:30px;">
-		    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-color: #ffc107;color: black;background: #ffc107;">Search</button>  
-		</form>
+    <div class="row" style="margin:auto; position:relative; padding-top: 38px;">
+      <form class="row" style="flex-flow: row;width: 100%; padding-bottom:30px;" action="#" method="POST">
+        <div class="input-field col s2 m2 l2">
+          <select name="queryType" class="selectpicker form-control">
+            <option value=""  selected>Search By</option>
+            <option value="1">Name</option>
+            <option value="2">Year</option>
+            <option value="3">Degree</option>
+            <option value="4">Department</option>
+            <option value="5">Faculty</option>
+            <option value="6">Job Experience</option>
+          </select>
+          
+        </div>
+        <div class="input-field col s8 m8 l8">
+          <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="input-field col s2 m2 l2">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="border-color: #ffc107;color: black;background: #ffc107;">Search</button>  
+        </div>
+      </form>
+      </div>
 		
 		<div class="cards" style="display: grid;  grid-gap: 50px;">
 			{% for user in users %}

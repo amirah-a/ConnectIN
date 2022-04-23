@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for, flash
+from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for, flash, jsonify
 from App.controllers import user, auth
 from flask_login import login_required, current_user
 
@@ -69,8 +69,10 @@ def view_profile(id):
 def my_profile():
     return render_template('profile.html', user=current_user)
 
-@api_views.route('/dashboard', methods=['GET'])
+@api_views.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    if request.method == "POST":
+        return redirect(url_for('api_views.search', type=request.form['queryType'], key=request.form['search']))
     users = user.get_all_users()
     return render_template('dashboard.html', users = users)
 
@@ -79,3 +81,21 @@ def dashboard():
 def logout():
     auth.logout_user()
     return ("logged out")
+
+@api_views.route('/search/<type>/<key>', methods=['GET'])
+@login_required
+def search(type, key):
+    if type == "2":
+        filterBy = "year"
+    elif type == "3":
+        filterBy = "degree"
+    elif type == "4":
+        filterBy = "department"
+    elif type == "5":
+        filterBy = "faculty"
+    elif type == "6":
+        filterBy = "experience"
+    else:
+        filterBy = "firstName"
+    users = user.search_for_users(type, key)
+    return render_template('dashboard.html', users = users)
