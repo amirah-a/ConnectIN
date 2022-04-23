@@ -10,6 +10,35 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style>
+        .card-body{
+            height: 100px;
+            position: relative;
+            width: 100%;
+        }
+        .buttons{
+            margin: 0;
+            position: absolute;
+            left: 31%;
+        }
+        button.primary {
+			background-color: #ffc107;
+			border: 1px solid #ad8306;
+			border-radius: 5px;
+			color: #231E39;
+			font-family: Montserrat, sans-serif;
+			font-weight: 500;
+			padding: 10px 25px;
+			margin-top: 18px;
+		}
+		
+		button.primary.ghost {
+            background-color: transparent;
+            color: #6c757d;
+		}
+
+    </style>
   </head>
   <body style="background-color: #e0a800;">
     {% with messages = get_flashed_messages() %}
@@ -33,15 +62,12 @@
                     <div class="row">
                         <div class="col-md-6" style="margin:auto; position:relative;width: 1500px; padding:10px;">
                             <div class="card">
-                                <div class="card-header"><h2><strong>ConnectIN</strong></h2></div>
+                                <div class="card-header"><h2><strong>Welcome to ConnectIn!</strong></h2></div>
                                 <div class="card-body">
-                                    <h3 style="text-align: center;">Login</h3>
-                                    <form action="#" method="post">
-                                        <div class="form-group"><label class="text-muted">Username</label><input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email"></div>
-                                        <div class="form-group"><label class="text-muted">Password</label><input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password"></div>
-                                        <div class="form-group">
-                                        </div> <button type="submit" class="btn btn-warning" style="float: right; border: 2px solid black; text-transform: none;">Login</button>
-                                    </form>
+                                    <div class="buttons">                                    
+                                        <button class="primary">Login</button>
+                                        <button class="primary ghost">Sign Up</button></div>
+
                                 </div>
                             </div>
                         </div>
@@ -50,6 +76,5 @@
             </div>
         </div>
     </div>
-
     </body>
 </html>
