@@ -15,7 +15,7 @@ def login():
         userL = auth.authenticate(request.form["username"], request.form["password"])
         if userL:
             auth.login_user(userL, False)
-            return redirect(url_for('api_views.profile'))
+            return redirect(url_for('api_views.view_profile', id=current_user.id))
         else:
             return ("Login Failed")
     else:
@@ -57,13 +57,15 @@ def createProfile():
     return render_template('createProfile.html')
 
 # route to display profile
-@api_views.route('/user-profile', methods=['GET'])
-def view_profile():
-    return render_template('profile.html')
+@api_views.route('/user-profile/<id>', methods=['GET'])
+def view_profile(id):
+    users= user.get_user_by_id(id)
+    return render_template('profile.html', user=users)
 
 @api_views.route('/dashboard', methods=['GET'])
 def dashboard():
-    return render_template('dashboard.html')
+    users = user.get_all_users()
+    return render_template('dashboard.html', users = users)
 
 @api_views.route('/logout', methods=['GET'])
 @login_required

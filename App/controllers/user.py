@@ -35,6 +35,12 @@ def get_user(username, email):
         return 
     return users
 
+def get_user_by_id(id):
+    users = User.query.filter_by(id=id).first()
+    if not users:
+        return 
+    return users
+
 
 def is_user(username, email):
     users = User.query.filter_by(username=username).first()
