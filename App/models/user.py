@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
     email =  db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
     year = db.Column(db.Integer, nullable= True)
-    degree = db.Column(db.Integer, nullable= True)
+    degree = db.Column(db.String, nullable= True)
     department = db.Column(db.String, nullable=True)
     faculty = db.Column(db.String, nullable=True)
     experience = db.Column(db.String, nullable=True)
