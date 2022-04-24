@@ -82,7 +82,7 @@ def landing():
 @login_required
 def logout():
     auth.logout_user()
-    return ("logged out")
+    return render_template('landing.html')
 
 @api_views.route('/search/<type>/<key>', methods=['GET', 'POST'])
 @login_required
